@@ -285,24 +285,28 @@ class _InvoiceScreenState extends State<InvoiceScreen> with TickerProviderStateM
             case 0:
               provider.setStatusFilter(null);
               provider.setPaymentStatusFilter(null);
+              provider.setOverdueFilter(false);
               break;
             case 1:
               provider.setStatusFilter(InvoiceStatus.pending);
               provider.setPaymentStatusFilter(null);
+              provider.setOverdueFilter(false);
               break;
             case 2:
               provider.setStatusFilter(null);
               provider.setPaymentStatusFilter(PaymentStatus.unpaid);
+              provider.setOverdueFilter(false);
               break;
             case 3:
               provider.setStatusFilter(null);
               provider.setPaymentStatusFilter(PaymentStatus.paid);
+              provider.setOverdueFilter(false);
               break;
             case 4:
+              // Show overdue invoices only
               provider.setStatusFilter(null);
               provider.setPaymentStatusFilter(null);
-              // Show overdue invoices
-              provider.setStatusFilter(InvoiceStatus.sent);
+              provider.setOverdueFilter(true);
               break;
           }
         },

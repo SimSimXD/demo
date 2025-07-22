@@ -11,6 +11,7 @@ class InvoiceProvider with ChangeNotifier {
   String _searchQuery = '';
   InvoiceStatus? _filterStatus;
   PaymentStatus? _filterPaymentStatus;
+  bool _showOverdueOnly = false;
 
   List<Invoice> get invoices {
     var filtered = _invoices.where((invoice) {
@@ -21,8 +22,9 @@ class InvoiceProvider with ChangeNotifier {
       bool matchesStatus = _filterStatus == null || invoice.status == _filterStatus;
       bool matchesPaymentStatus = _filterPaymentStatus == null || 
           invoice.paymentStatus == _filterPaymentStatus;
+      bool matchesOverdue = !_showOverdueOnly || invoice.isOverdue;
       
-      return matchesSearch && matchesStatus && matchesPaymentStatus;
+      return matchesSearch && matchesStatus && matchesPaymentStatus && matchesOverdue;
     }).toList();
 
     // Sort by issue date (newest first)
@@ -69,10 +71,16 @@ class InvoiceProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setOverdueFilter(bool showOverdueOnly) {
+    _showOverdueOnly = showOverdueOnly;
+    notifyListeners();
+  }
+
   void clearFilters() {
     _searchQuery = '';
     _filterStatus = null;
     _filterPaymentStatus = null;
+    _showOverdueOnly = false;
     notifyListeners();
   }
 

@@ -60,7 +60,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 3; // Default to Inventory tab, as per your latest context
+  int _selectedIndex = 4; // Default to Invoice tab to showcase the new invoice management system
 
   // List of screens for bottom navigation
   final List<Widget> _screens = [
