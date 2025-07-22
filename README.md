@@ -1,6 +1,6 @@
 # Invoice Management System
 
-A comprehensive Flutter-based Invoice Management System with full-featured invoice lifecycle management, including creation, approval workflow, payment tracking, and PDF generation.
+A clean and simple Flutter-based Invoice Management System with full-featured invoice lifecycle management, including creation, approval workflow, and payment tracking.
 
 ## Features
 
@@ -31,12 +31,6 @@ A comprehensive Flutter-based Invoice Management System with full-featured invoi
 - **Payment History**: Complete payment audit trail
 - **Balance Tracking**: Automatic calculation of remaining balances
 
-### 📄 PDF Generation & Sharing
-- **Professional PDF Invoices**: Generate beautifully formatted PDF invoices
-- **Company Branding**: Customizable company information and styling
-- **Print & Share**: Print invoices or share via email/messaging apps
-- **Local Storage**: Save PDFs to device for offline access
-
 ### 💾 Data Management
 - **Local Storage**: Persistent data storage using SharedPreferences
 - **Data Export/Import**: JSON-based data backup and restore
@@ -47,9 +41,7 @@ A comprehensive Flutter-based Invoice Management System with full-featured invoi
 - **Framework**: Flutter 3.8.1+
 - **State Management**: Provider pattern
 - **Local Storage**: SharedPreferences
-- **PDF Generation**: pdf & printing packages
 - **Date Formatting**: intl package
-- **Unique IDs**: uuid package
 
 ## Project Structure
 
@@ -59,8 +51,6 @@ lib/
 │   └── invoice_model.dart          # Data models (Invoice, Customer, InvoiceItem)
 ├── providers/
 │   └── invoice_provider.dart       # State management and business logic
-├── services/
-│   └── pdf_service.dart           # PDF generation and sharing
 ├── screens/
 │   ├── invoice_detail_screen.dart  # Detailed invoice view
 │   ├── invoice_form_screen.dart    # Create/edit invoice form
@@ -103,13 +93,9 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  intl: ^0.19.0              # Date formatting
-  pdf: ^3.10.7               # PDF generation
-  printing: ^5.12.0          # PDF printing/sharing
-  path_provider: ^2.1.2      # File system access
+  intl: ^0.19.0              # Date formatting and currency
   shared_preferences: ^2.2.2  # Local storage
   provider: ^6.1.1           # State management
-  uuid: ^4.3.3               # Unique ID generation
 ```
 
 ## Usage Guide
@@ -143,11 +129,7 @@ dependencies:
    - Payment reference/transaction ID
 4. **Confirm Payment**: The system automatically updates payment status
 
-### Generating PDFs
 
-1. **From Invoice Details**: Use the menu to select "Generate PDF", "Print", or "Share PDF"
-2. **Professional Format**: PDFs include company branding, customer details, itemized lists, and payment information
-3. **Multiple Options**: Save to device, print directly, or share via apps
 
 ### Dashboard Analytics
 
@@ -174,13 +156,6 @@ The main invoice screen provides:
 - Automatic total calculations
 
 ## Customization
-
-### Company Information
-Update company details in `lib/services/pdf_service.dart`:
-```dart
-static const String companyName = "Your Company Name";
-static const String companyAddress = "Your Company Address";
-```
 
 ### Styling
 Modify colors and themes in `lib/main.dart` and individual screen files.
@@ -252,10 +227,4 @@ For support or questions, please create an issue in the repository or contact th
 - Real-time balance calculations
 - Payment confirmation and tracking
 
-### PDF Generation
-- Professional invoice formatting
-- Company branding and customer details
-- Itemized billing and payment information
-- Print, save, and share options
-
-This Invoice Management System provides a complete solution for businesses to manage their invoicing workflow from creation to payment, with professional PDF generation and comprehensive tracking capabilities.
+This Invoice Management System provides a clean and efficient solution for businesses to manage their invoicing workflow from creation to payment, with comprehensive tracking capabilities and an intuitive user interface.

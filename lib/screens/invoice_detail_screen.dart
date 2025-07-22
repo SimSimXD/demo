@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../models/invoice_model.dart';
 import '../providers/invoice_provider.dart';
-import '../services/pdf_service.dart';
 import 'invoice_form_screen.dart';
 import 'payment_form_screen.dart';
 
@@ -42,9 +41,6 @@ class InvoiceDetailScreen extends StatelessWidget {
                 onSelected: (value) => _handleMenuAction(context, value, invoice, provider),
                 itemBuilder: (context) => [
                   const PopupMenuItem(value: 'edit', child: Text('Edit')),
-                  const PopupMenuItem(value: 'pdf', child: Text('Generate PDF')),
-                  const PopupMenuItem(value: 'print', child: Text('Print')),
-                  const PopupMenuItem(value: 'share', child: Text('Share PDF')),
                   if (invoice.status == InvoiceStatus.draft)
                     const PopupMenuItem(value: 'submit', child: Text('Submit for Approval')),
                   if (invoice.status == InvoiceStatus.pending) ...[
@@ -646,11 +642,6 @@ class InvoiceDetailScreen extends StatelessWidget {
           ),
         );
         break;
-      case 'pdf':
-      case 'print':
-      case 'share':
-        await _handlePdfAction(context, action, invoice);
-        break;
       case 'submit':
         await provider.submitForApproval(invoice.id);
         if (context.mounted) {
@@ -687,35 +678,7 @@ class InvoiceDetailScreen extends StatelessWidget {
     }
   }
 
-  Future<void> _handlePdfAction(BuildContext context, String action, Invoice invoice) async {
-    try {
-      final pdfData = await PdfService.generateInvoicePdf(invoice);
-      final fileName = 'Invoice_${invoice.invoiceNumber}';
 
-      switch (action) {
-        case 'pdf':
-          final file = await PdfService.savePdfToDevice(pdfData, fileName);
-          if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('PDF saved: ${file?.path ?? 'Unknown location'}')),
-            );
-          }
-          break;
-        case 'print':
-          await PdfService.printPdf(pdfData, fileName);
-          break;
-        case 'share':
-          await PdfService.sharePdf(pdfData, fileName);
-          break;
-      }
-    } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
-        );
-      }
-    }
-  }
 
   Future<void> _showApprovalDialog(BuildContext context, Invoice invoice, InvoiceProvider provider) async {
     final TextEditingController controller = TextEditingController();

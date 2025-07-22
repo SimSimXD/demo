@@ -1,5 +1,3 @@
-import 'package:uuid/uuid.dart';
-
 enum InvoiceStatus { draft, pending, approved, sent, paid, overdue, cancelled }
 enum PaymentStatus { unpaid, partiallyPaid, paid, refunded }
 
@@ -16,7 +14,7 @@ class InvoiceItem {
     required this.quantity,
     required this.unitPrice,
     this.taxRate = 0.0,
-  }) : id = id ?? const Uuid().v4();
+  }) : id = id ?? DateTime.now().millisecondsSinceEpoch.toString();
 
   double get subtotal => quantity * unitPrice;
   double get taxAmount => subtotal * (taxRate / 100);
@@ -80,7 +78,7 @@ class Customer {
     this.state = '',
     this.zipCode = '',
     this.country = '',
-  }) : id = id ?? const Uuid().v4();
+  }) : id = id ?? DateTime.now().millisecondsSinceEpoch.toString();
 
   Map<String, dynamic> toJson() {
     return {
@@ -148,7 +146,7 @@ class Invoice {
     this.paidAmount = 0.0,
     this.paymentMethod = '',
     this.paymentReference = '',
-  }) : id = id ?? const Uuid().v4();
+  }) : id = id ?? DateTime.now().millisecondsSinceEpoch.toString();
 
   double get subtotal => items.fold(0.0, (sum, item) => sum + item.subtotal);
   double get discountAmount => subtotal * (discountPercentage / 100);
