@@ -803,7 +803,7 @@ class _InvoiceFormScreenState extends State<InvoiceFormScreen> {
 
       if (_selectedCustomer == null) {
         await provider.addCustomer(customer);
-      } else if (_selectedCustomer!.id != customer.id) {
+      } else {
         await provider.updateCustomer(customer);
       }
 

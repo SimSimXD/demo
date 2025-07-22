@@ -363,7 +363,7 @@ class InvoiceProvider with ChangeNotifier {
           InvoiceItem(description: 'Support Package', quantity: 12, unitPrice: 200.0),
         ],
         issueDate: now.subtract(const Duration(days: 45)),
-        dueDate: now.subtract(const Duration(days: 45)).add(const Duration(days: 30)),
+        dueDate: now.subtract(const Duration(days: 20)), // This should be overdue
         status: InvoiceStatus.sent,
         paymentStatus: PaymentStatus.unpaid,
         taxRate: 8.5,
