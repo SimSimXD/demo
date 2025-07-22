@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'invoice.dart'; // Import the invoice.dart file
 import 'inventory.dart'; // Import the inventory.dart file
+import 'providers/invoice_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,38 +13,41 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Stitch Design',
-      theme: ThemeData(
-        primaryColor: const Color(0xFF0D141C),
-        scaffoldBackgroundColor: const Color(0xFFF8FAFC),
-        fontFamily: 'Inter',
-        textTheme: const TextTheme(
-          headlineMedium: TextStyle(
-            color: Color(0xFF0D141C),
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            letterSpacing: -0.015,
-          ),
-          bodyMedium: TextStyle(
-            color: Color(0xFF0D141C),
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-          bodySmall: TextStyle(
-            color: Color(0xFF49739C),
-            fontSize: 14,
-            fontWeight: FontWeight.normal,
-          ),
-          labelSmall: TextStyle(
-            color: Color(0xFF49739C),
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 0.015,
+    return ChangeNotifierProvider(
+      create: (context) => InvoiceProvider(),
+      child: MaterialApp(
+        title: 'Stitch Design',
+        theme: ThemeData(
+          primaryColor: const Color(0xFF0D141C),
+          scaffoldBackgroundColor: const Color(0xFFF8FAFC),
+          fontFamily: 'Inter',
+          textTheme: const TextTheme(
+            headlineMedium: TextStyle(
+              color: Color(0xFF0D141C),
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              letterSpacing: -0.015,
+            ),
+            bodyMedium: TextStyle(
+              color: Color(0xFF0D141C),
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+            bodySmall: TextStyle(
+              color: Color(0xFF49739C),
+              fontSize: 14,
+              fontWeight: FontWeight.normal,
+            ),
+            labelSmall: TextStyle(
+              color: Color(0xFF49739C),
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 0.015,
+            ),
           ),
         ),
+        home: const HomeScreen(),
       ),
-      home: const HomeScreen(),
     );
   }
 }
